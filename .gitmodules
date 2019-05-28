@@ -1,0 +1,3 @@
+[submodule "desktop/Themes"]
+	path = desktop/Themes
+	url = https://github.com/hundredrabbits/Themes
