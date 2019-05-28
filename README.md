@@ -9,6 +9,7 @@ please install this first: https://ffmpeg.org/download.html
 git clone https://github.com/TheCell/jiandan.git
 cd jiandan/desktop/
 git submodule init
+git submodule update
 npm install
 npm start
 ```
