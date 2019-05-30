@@ -1,6 +1,7 @@
 'use strict';
 
 const shellExec = require('shell-exec');
+const cp = require('child_process');
 let theme;
 
 document.addEventListener('DOMContentLoaded', function(event)
@@ -13,6 +14,11 @@ function getFiles()
 	let inputElement = document.getElementById("fileInput");
 	let files = inputElement.files;
 	return files;
+}
+
+function flacToMp3()
+{
+	//ffmpeg -i input.flac -id3v2_version 3 out.mp3
 }
 
 function imagesToGif()
@@ -38,42 +44,43 @@ function imagesToVideo()
 		videoName = videoName.substr(0, videoName.lastIndexOf("."));
 		videoName += ".mp4";
 		let outputFileAndFolder = videoName;
+		console.log(outputFileAndFolder);
 
 		let image = new Image();
 		image.onload = function ()
 		{
 			let width = 2 * Math.round(this.width / 2);
 			let height = 2 * Math.round(this.height / 2);
-			let command = `ffmpeg -framerate 30 ${getInputStringFromArray(files)} -c:v libx264 -pix_fmt yuv420p -vf 'pad=width=${width}:height=${height}:x=0:y=0:color=black' '${outputFileAndFolder}'`;
-			//command = command.replace(/\\/g,"/");
-			ffmpegCommand(`cd ${path}`);
-			ffmpegCommand("echo " + command);
-			ffmpegCommand(command);
+			let framerate = 30;
+			// can't do input like this.
+			let command = `ffmpeg -framerate ${framerate} ${getInputStringFromArray(files)} -c:v libx264 -pix_fmt yuv420p -vf "pad=width=${width}:height=${height}:x=0:y=0:color=black" -y "${outputFileAndFolder}"`;
+			console.log(command);
+			ffmpeg(command);
 		}
 		image.src = files[0].path;
 	}
 }
 
-function ffmpegCommand(command)
+function ffmpeg(command)
 {
-	//console.log(command);
-	shellExec(command)
-		.then(output =>
-		{
-			let stdout = output.stdout;
-			if (output.code == 0)
-			{
-				console.log(output, stdout);
-			}
-			else
-			{
-				writeProgress({cmd: output.cmd, error: output.stderr});
-			}
-		})
-		.catch(err =>
-		{
-			writeProgress({cmd: err.cmd, error: err.stderr});
-		});
+	//let shell = cp.exec(`ffmpeg -framerate 30 -i "C:\\Users\\simon\\Pictures\\testData\\images 0.png" -c:v libx264 -vf "format=yuv420p,pad=width=640:height=640:x=0:y=0:color=black" test.mp4`);
+	let shell = cp.exec(command);
+	shell.stdin.setEncoding('utf-8');
+
+	shell.stdout.on('data', (data) =>
+	{
+		console.log(`stdout: ${data}`);
+		//writeProgress({cmd: data});
+	});
+	shell.stderr.on('data', (data) =>
+	{
+		console.log(`stderr: ${data}`);
+		//writeProgress({error: data});
+	});
+	shell.on('close', (code) =>
+	{
+		console.log(`child process exited with code ${code}`);
+	});
 }
 
 function writeProgress(obj)
@@ -128,7 +135,7 @@ function getInputStringFromArray(arr)
 
 	for (let i = 0; i < arr.length; i++)
 	{
-		input += ` -i '${arr[i].path}'`;
+		input += `-i "${arr[i].path}" `;
 	}
 
 	return input;
