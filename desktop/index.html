@@ -8,13 +8,22 @@
 	<link rel="stylesheet" type="text/css" href="Themes/benchmark/links/theme.css"/>
 	<link rel="stylesheet" type="text/css" href="main.css"/>
 	<script src="Themes/benchmark/scripts/lib/theme.js"></script>
+	<script src="folderpaths.js"></script>
 	<script src="index.js"></script>
 </head>
 <body>
 	<div id="progressDiv">
 	</div>
 	<div id="mediaInput">
-		<input type="file" name="fileInput" id="fileInput" multiple="multiple">
+		<!--
+		<label for="folderInput">select Folder</label>
+		<input type="file" name="folderInput" id="folderInput" webkitdirectory="true">
+		-->
+		<label for="file">select Filename</label>
+		<input type="file" name="fileInput" id="fileInput">
+		<label for="fileName">Filename (Use "%d" or "%0Nd" if you have trailing 0. Example image%03d if the image names are image001.png):</label>
+		<input type="text" id="fileName" name="fileName">
+	   <!-- <input type="file" name="fileInput" id="fileInput" multiple="multiple"> -->
 	</div>
 	<div id="saveOptions">
 		<button onclick="imagesToVideo()">Save as Video</button>
