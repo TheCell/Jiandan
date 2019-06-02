@@ -39,6 +39,12 @@ function imagesToGif()
 	//'-lavfi palettegen=stats_mode=diff[pal],[0:v][pal]paletteuse=new=1:diff_mode=rectangle'
 }
 
+function HEVCToMp4()
+{
+	//ffmpeg -i input -c:v libx264 -crf 18 -vf format=yuv420p -c:a copy output.mkv
+	// https://superuser.com/questions/1380946/how-do-i-convert-10-bit-h-265-videos-to-h-264-without-quality-loss
+}
+
 function imagesToVideo()
 {
 	let inputString = getInputString();
