@@ -1,4 +1,7 @@
-html
+body
 {
     color:var(--f_high);
+    font-family: 'input_mono_medium', monospace;
+    padding: 19px;
+    overflow: hidden;
 }
