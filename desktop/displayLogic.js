@@ -1,5 +1,11 @@
 'use strict';
 
+document.addEventListener('DOMContentLoaded', function (event)
+{
+	setMenuBar();
+	testProgressbar();
+});
+
 function testProgressbar()
 {
 	window.testProgress = 0;
@@ -13,7 +19,6 @@ function testProgressbar()
 		}
 	}, 100);
 }
-testProgressbar();
 
 function setProgressbar(progress)
 {
@@ -47,4 +52,33 @@ function setProgressbar(progress)
 			progressbar.appendChild(unprogressed.cloneNode(true));
 		}
 	}
+}
+
+function setMenuBar()
+{
+	let menuBar = document.getElementById("menuBar");
+	menuBar.innerText = "";
+	for (let i = 0; i < 97; i++)
+	{
+		menuBar.appendChild(getInvisibleSpace());
+	}
+
+	let minimize = document.createElement("span");
+	minimize.innerText = "▼";
+
+	let close = document.createElement("span");
+	close.innerText = "■";
+
+	menuBar.appendChild(minimize);
+	menuBar.appendChild(getInvisibleSpace());
+	menuBar.appendChild(close);
+}
+
+function getInvisibleSpace()
+{
+	let space = document.createElement("span");
+	space.className = "invisibleSpace";
+	space.innerText = "∙";
+
+	return space;
 }

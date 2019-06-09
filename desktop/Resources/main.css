@@ -6,6 +6,11 @@ body
     overflow: hidden;
 }
 
+.invisibleSpace
+{
+    color: var(--background);
+}
+
 .progressed
 {
 	color: var(--f_low);
