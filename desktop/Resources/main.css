@@ -5,3 +5,18 @@ body
     padding: 19px;
     overflow: hidden;
 }
+
+.progressed
+{
+	color: var(--f_low);
+}
+
+.progressHead
+{
+	color: var(--f_med);
+}
+
+.unprogressed
+{
+	color: var(--b_low);
+}
