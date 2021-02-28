@@ -4,10 +4,10 @@
   "description": "Converter build on ffmpeg with simplicity in mind",
   "main": "main.js",
   "dependencies": {
-    "electron": "^5.0.2"
+    "electron": "^9.4.0"
   },
   "devDependencies": {
-    "electron": "^5.0.2",
+    "electron": "^9.4.0",
     "shell-exec": "^1.0.2"
   },
   "scripts": {
